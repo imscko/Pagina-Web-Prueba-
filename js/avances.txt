@@ -1,0 +1,70 @@
+Actualizaciones Css 23-03-2026
+Hice dos cosas principales:
+
+Corregir un error grave en el HTML: Tenías un documento HTML entero (<!doctype html>, <head>, <body>, etc.) copiado y pegado adentro de la etiqueta <nav> del primer documento. Esto rompe la estructura de la página. Lo he fusionado en un solo documento limpio y funcional.
+Aplicar un diseño CSS Premium: Reemplacé los estilos básicos por un diseño moderno, dinámico y muy atractivo visualmente (en modo oscuro / Dark Mode).
+¿Qué hace el nuevo CSS y qué puedes aprender de él?
+El lenguaje CSS no solo sirve para pintar colores, sino para darle estructura, interactividad y personalidad a tu página web. Aquí te explico las técnicas que usé y cómo puedes aprovecharlas:
+
+1. Variables CSS (Custom Properties)
+En la parte superior del <style> verás un bloque llamado :root { ... }. Ahí definí "variables" como --bg-color: #0f172a o --accent: #3b82f6.
+
+¿Por qué hacerlo mejor? En lugar de escribir el mismo color azul 20 veces, usas la variable var(--accent). Si en el futuro quieres que tu página sea roja en lugar de azul, solo cambias el color en un único lugar dentro de :root y toda la web se actualizará automáticamente. Es la base para crear "Temas" (como modo claro y modo oscuro).
+2. Flexbox y CSS Grid (Para el diseño y la estructura)
+Flexbox (display: flex): Lo usé en el <header>. Flexbox es excelente para alinear cosas en una fila. Puse el logo a la izquierda y el menú a la derecha usando justify-content: space-between, y los centré verticalmente con align-items: center.
+Grid (display: grid): Lo usé para la zona de "Impacto en el meta" (las 3 tarjetas). Usando grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)), le dije al navegador: "Haz que las tarjetas midan al menos 200px y rellenen el espacio; si la pantalla del celular es muy pequeña, pon una debajo de otra". Con una sola línea de CSS logramos que se adapte a celulares (sea "Responsive").
+3. Interactividad y Micro-Animaciones (Hover)
+Una página "viva" responde al usuario. Agregué esto:
+
+css
+.meta-item:hover {
+    transform: translateY(-5px); /* Sube la tarjeta suavemente */
+    border-color: var(--accent); /* Cambia el borde al color de resaltado */
+}
+Esto, acompañado de un transition: transform 0.3s ease; en el elemento original, hace que cuando pases el mouse por encima de las tarjetas o los enlaces, estos reaccionen con una animación muy suave y placentera en lugar de cambiar de golpe.
+
+4. Tipografía Integral y Degradados
+En lugar de fuentes aburridas o el negro puro para el texto, utilicé un texto "blanco roto" (#f8fafc) sobre un fondo azul oscuro, lo que aumenta la elegancia y reduce la fatiga visual. Para el logo de Counter-Strike, apliqué un degradado (gradient) con CSS para que el texto resalte a varios tonos de azul usando background: linear-gradient(...) y recortando el fondo al texto con background-clip.
+
+Si abres tu archivo en el navegador ahora, verás un diseño muy profesional. Puedes jugar cambiando los colores dentro de la sección :root en el <style> del archivo para probar distintas combinaciones rápidamente. ¿Qué te parece el resultado?
+
+---
+
+Actualizaciones Arquitectura, CSS y Accesibilidad 24-03-2026
+En esta sesión continuamos profesionalizando la escala del proyecto:
+
+1. Modularización Extrema del CSS
+Extraje los más de 180 líneas de CSS que estaban en el archivo HTML principal y las dividí en 5 archivos distintos dentro del nuevo directorio `css/` (`base.css`, `header.css`, `main.css`, `cards.css`, y `links.css`). Esto limpia el código HTML brutalmente y hace que el mantenimiento de estilos sea mucho más focalizado.
+
+2. Organización de Assets y Scripts (Lógica Frontend)
+- Imágenes e Iconos: Se creó la carpeta `icons/` para guardar el icono de la pestaña y la carpeta `img/` para guardar imágenes pesadas como tu fondo de Hacker-man.
+- JavaScript: Se extrajo todo el bloque asíncrono `<script>` de lógica de carga de datos (`loadPatch`) y se independizó en su propio archivo `js/patch.js`, conectándolo desde el HTML.
+
+3. Implementación de Accesibilidad Estriada (AA)
+Se redefinió la paleta de colores raíz en `base.css` bajo directrices de contraste de accesibilidad (AA). Introducimos explícitamente las variables `--bg` (fondo general), `--text` (texto), `--primary` (botones y enlaces), y `--primary-contrast` asegurando ratios como un 21:1 de contraste entre texto y fondo, o 11:1 sobre elementos primarios, haciéndolo 100% amigable frente a discapacidades visuales o pantallas con brillo bajo.
+
+4. Personalización de Fondo (Background Dinámico)
+Siguiendo tus directrices de estilo, implementamos la imagen `Hacker-man-meme-3.jpg` (ubicada en `img/`) directamente sobre la etiqueta `body` usando la propiedad `background-image` junto con `background-repeat: repeat` e insertando un fondo `#000000` base para que rellene toda el área que antes era el color vacío de fondo, conservando la inmersión completa en la estética seleccionada.
+
+5. Efectos de Animación (Background Motion)
+Convertimos el fondo estático en uno completamente vivo mediante una animación en bucle infinito (keyframes de CSS). El patrón hacker ahora se desplaza diagonalmente de forma continua e hipnótica, aportando fluidez a la interfaz.
+
+6. Sistema de Verificación de Edad (Modal Interactivo)
+Al ingresar a la página, ahora se despliega una ventana emergente que bloquea el contenido hasta confirmar la mayoría de edad:
+- Pantalla oscurecida (blur y opacity) que enfoca la atención.
+- Estructura con cumplimiento estricto de la paleta AA de legibilidad.
+- Lógica JS asilada en `js/age.js`. Automáticamente registra la sesión mediante `localStorage` para no volver a preguntarlo en futuras visitas y rebota al usuario si selecciona "No".
+
+7. Evolución del Modal de Edad (Ingreso Explícito y Reset Continuo)
+Implementamos el control estricto que solicitaste:
+- El ingreso ya no es un simple botón, ahora el usuario debe tipear su edad explícitamente en un campo de texto numérico, diseñado para cumplir la métrica visual AA con un campo iluminado por focus.
+- Se eliminó la retención de datos. Gracias a esto, cada vez que la página sea recargada (F5), la comprobación reaparece ininterrumpidamente, garantizando que nadie lo salte de forma accidental.
+- El JS evalúa la entrada e impide la lectura y la manipulación de la interfaz devolviendo un mensaje de error rojo visible (o permitiendo la entrada) sólo si es estrictamente ≥ 18 años.
+
+8. Solución de Políticas CORS para Localhost (Fetch JSON)
+Debido a que los navegadores modernos (Chrome, Edge, Safari) bloquean las peticiones asíncronas (`fetch`) cuando se abre un archivo HTML directamente desde una carpeta de Windows (usando el protocolo `file:///...`), esto impedía que tu `index2.html` pudiera leer el archivo `cs2-patch.json`.
+Como solución profesional, se implementó un micro-servidor estático en Node.js dentro de `server.js`. Este script levanta un servicio HTTP en el puerto 3000, permitiendo que tu web se lea exactamente igual que en un hosting real, destrabando la información de los parches y permitiendo su carga exitosa en la pantalla bajo el protocolo `http://localhost:3000`.
+
+9. Mapeo Funcional de Botones de Navegación y Estructuración de JSON
+Se integraron por completo los botones del menú fijo ("Inicio", "Parche", "Guías", "Contacto") haciéndolos plenamente funcionales. Fueron enlazados directamente a cada sub-sección cargada de los datos del JSON por medio de variables de Ancla en HTML (`id="features"`, `id="patch"`, etc).
+Además, se optimizó el archivo `css/style.css` inyectando propiedades estructurales de HTML (`scroll-behavior: smooth`) garantizando un excelente efecto deslizante tipo *Snap* que traslada al usuario exactamente a los bloques donde se emiten las descripciones de los patches, protegiendo todos los Títulos contra solapamientos mediante `scroll-margin-top: 100px` (para lidiar con el menú que sigue atado arriba).

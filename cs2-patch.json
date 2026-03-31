@@ -1,0 +1,16 @@
+{
+  "summary": "Ajustes mayores en la economía y corrección de bugs en Inferno.",
+  "date": "17 de Marzo, 2026",
+  "changes": [
+    "Reducido el costo de la M4A4 de $3100 a $3000.",
+    "Ajustados los puntos de respawn en de_inferno para evitar bloqueos.",
+    "Corregido un error visual con las granadas de humo al interactuar con el agua.",
+    "Mejoras de rendimiento en el motor Source 2 para tarjetas gráficas de gama baja."
+  ],
+  "impact": {
+    "weapons": "La M4A4 será más viable frente a la M4A1-S.",
+    "econ": "Los CT tendrán un respiro económico en las rondas de compra ajustada.",
+    "maps": "Rotaciones más limpias en Inferno."
+  },
+  "tips": "Aprovecha el nuevo costo de la M4A4 para invertir en utilidad extra (flashbangs) durante las rondas 3 y 4. Revisa tus lineups de humo en Banana, ya que la física del agua ha cambiado ligeramente."
+}

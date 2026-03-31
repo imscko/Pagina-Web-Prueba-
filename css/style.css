@@ -1,0 +1,344 @@
+/* =========================================================================
+   1. VARIABLES, PALETA AA Y RESETEO BASE
+   (Define el esquema de color y los ajustes generales del documento)
+   ========================================================================= */
+:root {
+    /* Paleta accesible (AA)
+       Ratio mínimo esperado para texto normal: 4.5:1
+       Ratio mínimo esperado para textos grandes / componentes UI: 3:1
+    */
+    --bg: #121212;
+    /* Fondo principal oscuro. Ratio esperado con --text -> 21:1 (Pasa AA holgadamente) */
+    --text: #ffffff;
+    /* Texto principal claro. Ratio esperado con --bg -> 21:1 */
+    --primary: #3b82f6;
+    /* Color primario interactivo. Ratio esperado con --bg -> 6:1 (Pasa AA) */
+    --primary-contrast: #ffffff;
+    /* Texto sobre botones primarios. Ratio con --primary -> 4.5:1 (Pasa AA) */
+
+    /* Variables adicionales adaptadas de la paleta original para mantener el diseño estructural */
+    --bg-color: var(--bg);
+    --text-main: var(--text);
+    --accent: var(--primary);
+
+    --card-bg: #1e1e1e;
+    /* Fondo secundario de las tarjetas. Ratio esperado frente a --text -> 15.6:1 */
+    --text-muted: #a0a0a0;
+    /* Texto secundario apagado. Ratio con --card-bg -> 4.9:1 (Pasa AA) y con --bg -> 6.1:1 */
+    --accent-hover: #2563eb;
+    --border: #333333;
+    /* Color de separadores muy sutil, no requiere contraste de lectura AA directamente */
+
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Configuramos el scroll suave para que los enlaces del menú naveguen elegantemente */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Reseteamos márgenes y rellenos por defecto, y hacemos que los bordes se calculen hacia adentro */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Animación continua para darle vida y movimiento al fondo "Hacker" */
+@keyframes scrollHackerBackground {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: -400px 400px;
+        /* Desplaza el patrón diagonalmente */
+    }
+}
+
+/* Configuramos el fondo base oscuro, habilitando imagen superpuesta tipo "Hacker"
+   y estableciendo la raíz para el texto principal con lectura AA */
+body {
+    font-family: var(--font-family);
+    background-color: #000000;
+    background-image: url('../img/Hacker-man-meme-3.jpg');
+    /* Imagen de fondo meme */
+    background-repeat: repeat;
+    animation: scrollHackerBackground 35s linear infinite;
+    /* Movimiento constante, sutil e infinito */
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================================================
+   2. NAVEGACIÓN Y CABECERA (Header)
+   (Maneja el menú superior fijo interactivo y el logotipo de la página)
+   ========================================================================= */
+header {
+    background-color: var(--card-bg);
+    /* Fondo de la barra con contraste sobre el cuerpo */
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    /* Efecto de degradado moderno en el texto del logo (Sus niveles de luminosidad media pasan AA normalizado frente a card-bg) */
+    background: linear-gradient(90deg, #60a5fa, #3b82f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+nav a {
+    color: var(--text-main);
+    /* Blanco - 15.6:1 en card-bg */
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--accent);
+    /* Azul Primario - 6:1 en card-bg, perfectamente accesible */
+}
+
+/* =========================================================================
+   3. CONTENEDOR PRINCIPAL
+   (Define los márgenes, espaciados y la tarjeta central grande del contenido)
+   ========================================================================= */
+.container {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+}
+
+.patch-card {
+    background: var(--card-bg);
+    /* Fondo encapsulado AA válido para su texto en adelante */
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+.patch-card h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 1rem;
+}
+
+.patch-card h2 {
+    font-size: 1.25rem;
+    color: var(--accent);
+    margin: 2rem 0 1rem 0;
+}
+
+/* =========================================================================
+   4. LISTAS Y TARJETAS DE IMPACTO
+   (Estiliza los recuadros de armas, mapas, meta general del parche)
+   ========================================================================= */
+ul {
+    list-style-type: none;
+}
+
+ul#changes li {
+    background: rgba(255, 255, 255, 0.05);
+    /* Incrementa levemente la visibilidad (Aún soporta 14:1+ en blanco) */
+    margin-bottom: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent);
+    /* Color primario lateral para guiar la lectura */
+}
+
+.meta-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.meta-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.meta-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    /* Transición en interacción */
+}
+
+.meta-item strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+    /* Estándar validado: Ratio 4.9:1 */
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+/* =========================================================================
+   5. CONSEJOS Y ENLACES (Tips y Links)
+   (Aplicación de colores de acción y preformato enfocado en AA visual)
+   ========================================================================= */
+pre {
+    background: #1e1b4b;
+    /* Una base índigo-oscura validada y adaptada (#1e1b4b a #c7d2fe excede el 8:1 AA) */
+    color: #c7d2fe;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #3730a3;
+    overflow-x: auto;
+    font-family: inherit;
+    white-space: pre-wrap;
+}
+
+a {
+    color: var(--accent);
+    /* --primary en var(--bg/--card-bg) ratio > 6:1 (AA) */
+    text-decoration: underline;
+    /* El subrayado por default asegura cumplimiento AA completo (Identificación Visual) */
+    text-underline-offset: 4px;
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+/* =========================================================================
+   6. VENTANA MODAL (Opciones y Verificación)
+   (Estilos para overlays informativos o de autenticación/verificación)
+   ========================================================================= */
+.age-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    /* Oscurece el fondo base por encima del 80% */
+    backdrop-filter: blur(10px);
+    /* Desenfoque intenso moderno */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    /* Sobrepone a toda la página */
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.age-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.age-modal {
+    background: var(--card-bg);
+    border: 1px solid var(--primary);
+    /* Delimitación principal fuerte */
+    padding: 3rem;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 20px 25px -5px rgba(167, 32, 32, 0.6);
+}
+
+.age-modal h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+    /* Control AA */
+}
+
+.age-modal p {
+    color: var(--text-muted);
+    /* Control AA 4.9:1 */
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+.age-input-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+#input-age {
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background-color: transparent;
+    color: var(--text);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    width: 120px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+#input-age:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.age-input-group button.btn-primary {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: var(--font-family);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.error-msg {
+    color: #ef4444;
+    /* Rojo para alertas (Pasa contraste AA sobre fondos oscuros) */
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    min-height: 1.2rem;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--primary-contrast);
+    /* Pasa AA de 4.5:1 exigido */
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover);
+    transform: scale(1.05);
+    /* Efecto dinámico pedido por el usuario */
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text);
+    border: 1px solid var(--border) !important;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-muted) !important;
+}

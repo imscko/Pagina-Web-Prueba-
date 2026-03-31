@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Counter-Strike — Noticias y parches</title>
+    <link rel="icon" type="image/x-icon" href="icons/counter-strike-1.6.ico">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">Counter-Strike</div>
+        <nav>
+            <a href="#home">Inicio</a>
+            <a href="#patch">Parche</a>
+            <a href="#features">Guías</a>
+            <a href="#contact">Contacto</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Contenedor principal: aquí se mostrará la información del parche -->
+        <main class="patch-card" id="home">
+            <h1 style="scroll-margin-top: 100px;">Meta del último parche y armamento — CS2 (Steam)</h1>
+
+            <p id="summary" style="margin-bottom:1rem; color: var(--text-muted);">
+                Resumen: <span id="patch-summary" style="color: var(--text-main);">Cargando información del
+                    parche...</span>
+            </p>
+            <p style="margin-bottom:2rem; color: var(--text-muted);">
+                Fecha del parche: <strong id="patch-date" style="color: var(--text-main);">—</strong>
+            </p>
+
+            <h2 id="patch" style="scroll-margin-top: 100px;">Cambios clave y Meta</h2>
+            <ul id="changes">
+                <li>Cargando cambios...</li>
+            </ul>
+
+            <h2>Impacto en el meta</h2>
+            <div class="meta-list" id="meta-impact">
+                <div class="meta-item"><strong>Armas</strong>
+                    <div id="impact-weapons">—</div>
+                </div>
+                <div class="meta-item"><strong>Economía</strong>
+                    <div id="impact-econ">—</div>
+                </div>
+                <div class="meta-item"><strong>Mapas</strong>
+                    <div id="impact-maps">—</div>
+                </div>
+            </div>
+
+            <h2 id="contact" style="scroll-margin-top: 100px;">Notas y recursos</h2>
+            <ul style="background:none; border:none; padding:0; margin-left: 1rem;">
+                <!-- Cambiado el diseño en-listado localmente para no interferir con las listas de cambios -->
+                <li style="list-style-type: disc; background:none; border:none; padding:0.25rem 0; margin-bottom: 0;">
+                    <a id="link-steam" href="#" target="_blank" rel="noopener">Página oficial del parche en Steam</a>
+                </li>
+                <li style="list-style-type: disc; background:none; border:none; padding:0.25rem 0; margin-bottom: 0;">
+                    <a id="link-full-notes" href="#" target="_blank" rel="noopener">Notas completas (fuente)</a>
+                </li>
+            </ul>
+
+            <h2 id="features" style="scroll-margin-top: 100px;">Guías y Consejos rápidos</h2>
+            <pre id="tips">Cargando...</pre>
+        </main>
+    </div>
+
+    <!-- MODAL DE VERIFICACIÓN DE EDAD -->
+    <div id="age-modal-overlay" class="age-overlay">
+        <div class="age-modal">
+            <h2>Verificación de Edad</h2>
+            <p>Este sitio contiene información y contenido restringido.<br>Por favor, ingresa tu edad para continuar:</p>
+            <div class="age-input-group">
+                <input type="number" id="input-age" placeholder="Tu edad" min="1" max="120">
+                <button id="btn-submit-age" class="btn-primary">Entrar</button>
+            </div>
+            <p id="age-error-msg" class="error-msg"></p>
+        </div>
+    </div>
+
+    <script src="js/patch.js"></script>
+    <script src="js/age.js"></script>
+</body>
+
+</html>
